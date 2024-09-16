@@ -8,6 +8,18 @@ const instrumentSans = localFont({
   weight: "100 900",
 });
 
+const instrumentSansBold = localFont({
+  src: "./fonts/static/InstrumentSans-Bold.ttf",
+  variable: "--font-instrument-sans-bold",
+  weight: "100 900",
+});
+
+const instrumentSansSemiBold = localFont({
+  src: "./fonts/static/InstrumentSans-SemiBold.ttf",
+  variable: "--font-instrument-sans-semibold",
+  weight: "100 900",
+});
+
 export const metadata = {
   title: "Devlinks-Epyc",
   description: "Devlinks for Devs",
@@ -16,7 +28,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${instrumentSans.variable}`}>
+      <body className={`${instrumentSans.variable} ${instrumentSansBold.variable} ${instrumentSansSemiBold.variable}`}>
         <Navbar/>
         {children}
       </body>
