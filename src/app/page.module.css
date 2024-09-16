@@ -3,6 +3,7 @@
   align-items: center;
   margin: 0 24px;
   gap: 24px;
+  padding-bottom: 24px;
 }
 
 .nav {
@@ -55,13 +56,11 @@
 }
 
 .button:hover {
-  background-color: var(--purple);
-  color: white;
+  background-color: var(--light-purple);
 }
 
 .frame {
   display: flex;
-  width: 40%;
   padding: 24px;
   justify-content: center;
   align-items: center;
@@ -80,6 +79,7 @@
   align-self: stretch;
   background: white;
   border-radius: 12px;
+  width: 100%;
 }
 
 .customTabHeader {
@@ -100,6 +100,22 @@
   font-size: 16px;
   color: var(--base-grey);
   font-weight: 400;
+}
+
+.customTab .addLinkCta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;  
+  justify-content: center;
+  padding: 20px;
+  background: var(--light-grey);
+  gap: 24px;
+  text-align: center;
+  border-radius: 12px;
+}
+
+.customTab .button {
+  justify-content: left;
 }
 
 .main ol {
