@@ -1,5 +1,6 @@
 import localFont from "next/font/local";
 import "./globals.css";
+import Navbar from "./(components)/Navbar";
 
 const instrumentSans = localFont({
   src: "./fonts/static/InstrumentSans-Regular.ttf",
@@ -16,6 +17,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${instrumentSans.variable}`}>
+        <Navbar/>
         {children}
       </body>
     </html>
