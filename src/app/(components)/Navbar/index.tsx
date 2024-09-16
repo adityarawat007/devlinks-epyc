@@ -1,10 +1,11 @@
 "use client";
 
-import Image from "next/image";
-import React, { useState } from "react";
-import styles from "../../page.module.css";
-import Button from "../Button";
-const Navbar = () => {
+import Image from 'next/image';
+import React from 'react';
+import styles from '../../page.module.css';
+import Button from '../Button';
+
+const Navbar: React.FC = () => {
   return (
     <nav className={styles.nav}>
       <div className={styles.span}>
@@ -24,3 +25,4 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
