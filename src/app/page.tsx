@@ -6,7 +6,7 @@ import CustomLink from '@/app/(components)/CustomLink';
 
 const Home: React.FC = (): JSX.Element => {
   return (
-    <div className={styles.main}>
+    <div className="flex items-stretch gap-6 px-6 pb-6 w-full ">
       <Frame />
       <CustomLink />
     </div>
