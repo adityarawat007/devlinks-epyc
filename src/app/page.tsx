@@ -1,21 +1,22 @@
-import React from 'react';
-import Image from 'next/image';
-import Frame from '@/app/(components)/Frame';
-import CustomLink from '@/app/(components)/CustomLink';
-import Navbar from './(components)/Navbar';
-
+import React from "react";
+import Image from "next/image";
+import Frame from "@/app/(components)/Frame";
+import CustomLink from "@/app/(components)/CustomLink";
+import Navbar from "./(components)/Navbar";
 
 const Home: React.FC = (): JSX.Element => {
   return (
-  
-      <div className=" flex flex-col mx-auto  max-w-6xl justify-center pb-6 w-full ">
-           <Navbar />
-     <div className=' w-full flex justify-center items-stretch gap-x-6 '>
-     <Frame />
-     <CustomLink />
-     </div>
+    <div className=" flex flex-col mx-auto justify-center pb-6 w-full ">
+      <Navbar />
+      <div className=" w-full flex justify-center px-6 items-stretch gap-x-6 ">
+        <div className="w-2/5 lg:flex hidden">
+        <Frame />
+        </div>
+       <div className="lg:w-3/5 w-full">
+       <CustomLink />
+       </div>
+      </div>
     </div>
-
   );
 };
 

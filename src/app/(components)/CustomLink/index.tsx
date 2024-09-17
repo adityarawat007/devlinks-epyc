@@ -5,7 +5,7 @@ import Image from "next/image";
 import DragableInput from "@/app/(components)/DragableInput";
 
 const CustomLink: React.FC = () => {
-  const [links, setLinks] = useState([{ id: "link1" }]);
+  const [links, setLinks] = useState<{ id: string }[]>([]);
 
   const addLink = () => {
     const newLink = { id: `link-${Date.now()}` };
@@ -24,29 +24,33 @@ const CustomLink: React.FC = () => {
           </p>
         </div>
         <Button title="+ Add New Link" onClick={addLink} />
-        {/* <div className="flex flex-col items-center justify-center gap-6 p-5 bg-light-grey rounded-lg text-center">
-        <Image
-          src="images/illustration-empty.svg"
-          width={250}
-          height={160}
-          alt="illustration-empty"
-        />
-        <h2 className="font-instrument-sans-bold text-2xl text-base-dark-grey font-bold">
-          Let’s get you started
-        </h2>
-        <p className="font-instrument-sans text-base-grey font-normal">
-          Use the “Add new link” button to get started. Once you have more than
-          one link, you can reorder and edit them. We’re here to help you share
-          your profiles with everyone!
-        </p>
-      </div> */}
-        <div
-          className="scrollable-container overflow-y-auto " 
-          style={{ height: "260px" }}  
-        >
-          <DragableInput links={links} setLinks={setLinks} />
-        </div>
+        {links.length === 0 ? (
+          <div className="flex flex-col items-center justify-center gap-6 p-5 bg-light-grey rounded-lg text-center">
+            <Image
+              src="images/illustration-empty.svg"
+              width={250}
+              height={160}
+              alt="illustration-empty"
+            />
+            <h2 className="font-instrument-sans-bold text-2xl text-base-dark-grey font-bold">
+              Let’s get you started
+            </h2>
+            <p className="font-instrument-sans text-base-grey font-normal">
+              Use the “Add new link” button to get started. Once you have more
+              than one link, you can reorder and edit them. We’re here to help
+              you share your profiles with everyone!
+            </p>
+          </div>
+        ) : (
+          <div
+            className="scrollable-container overflow-y-auto"
+            style={{ height: "260px" }}
+          >
+            <DragableInput links={links} setLinks={setLinks} />
+          </div>
+        )}
       </div>
+
       <div className="flex  bg-white md:justify-end   border-t border-dark-grey w-full px-10 py-6 rounded-b-lg md:p-6 ">
         <div className="w-full sm:w-fit flex ">
           <Button title="Save" />

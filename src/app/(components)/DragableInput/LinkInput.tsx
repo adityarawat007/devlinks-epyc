@@ -166,7 +166,7 @@ const LinkInput: React.FC<LinkInputProps> = ({ id, index, onRemove }) => {
                 />
               </div>
               {isOpen && (
-                <div className="absolute z-10 w-full select-none cursor-pointer mt-1 px-4 text-base-dark-grey py-3 bg-white border border-border rounded-lg shadow-lg">
+                <div className="absolute z-50 w-full select-none cursor-pointer mt-1 px-4 text-base-dark-grey py-3 bg-white border border-border rounded-lg shadow-lg">
                   {selectOptions.map((option) => (
                     <div
                       key={option.value}
