@@ -31,7 +31,8 @@ npm run dev
 
 ## Technologies used :
 - Nextjs
-- Javascript
-- HTML/CSS
+- Tyepscript
+- TailwindCSS
+- React beautiful-dnd
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.

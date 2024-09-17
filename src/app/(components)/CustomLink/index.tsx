@@ -1,10 +1,12 @@
+"use client"
 import React from "react";
 import Button from "../Button";
 import Image from "next/image";
+import DragableInput from '@/app/(components)/DragableInput'
 
 const CustomLink: React.FC = () => {
   return (
-    <div className="flex w-3/5 flex-col gap-10 p-10 bg-white rounded-lg ">
+    <div className="flex w-full lg:w-3/5 flex-col gap-10 p-10 bg-white rounded-lg ">
       <div className="flex flex-col gap-2">
         <h2 className="font-instrument-sans-bold text-2xl text-base-dark-grey font-bold">
           Customize your links
@@ -15,7 +17,7 @@ const CustomLink: React.FC = () => {
         </p>
       </div>
       <Button title="+ Add New Link" />
-      <div className="flex flex-col items-center justify-center gap-6 p-5 bg-light-grey rounded-lg text-center">
+      {/* <div className="flex flex-col items-center justify-center gap-6 p-5 bg-light-grey rounded-lg text-center">
         <Image
           src="images/illustration-empty.svg"
           width={250}
@@ -30,7 +32,8 @@ const CustomLink: React.FC = () => {
           one link, you can reorder and edit them. We’re here to help you share
           your profiles with everyone!
         </p>
-      </div>
+      </div> */}
+      <DragableInput/>
       <div className="flex border-t border-dark-grey w-full pt-6 ">
         <div className="justify-end flex">
           <Button title="Save" />
