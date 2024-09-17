@@ -1,11 +1,24 @@
 import React from "react";
 
-const Button: React.FC<{ title: string }> = ({ title }) => {
+interface ButtonProps {
+  title: string;
+  onClick?: () => void; 
+}
+
+const Button: React.FC<ButtonProps> = ({ title, onClick }) => {
   return (
-    <button className="flex items-center justify-center px-7 py-3 gap-2 border rounded-md border-purple bg-white text-purple font-semibold text-base transition-colors duration-300 hover:bg-light-purple w-full text-center">
+    <button
+      className={`flex items-center justify-center px-7 py-3 gap-2 border rounded-md border-purple ${
+        title === "Save"
+          ? "bg-purple text-white "
+          : "bg-white text-purple hover:bg-light-purple"
+      } font-semibold text-base transition-colors duration-300  w-full text-center`}
+      onClick={onClick}  
+    >
       {title}
     </button>
   );
 };
 
 export default Button;
+

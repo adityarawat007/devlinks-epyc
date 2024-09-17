@@ -1,23 +1,30 @@
-"use client"
-import React from "react";
+"use client";
+import React,{useState} from "react";
 import Button from "../Button";
 import Image from "next/image";
-import DragableInput from '@/app/(components)/DragableInput'
+import DragableInput from "@/app/(components)/DragableInput";
 
 const CustomLink: React.FC = () => {
+
+  const [links, setLinks] = useState([{ id: 'link1' }]);
+
+  const addLink = () => {
+    setLinks([...links, { id: `link${links.length + 1}` }]);
+  };
   return (
-    <div className="flex w-full lg:w-3/5 flex-col gap-10 p-10 bg-white rounded-lg ">
-      <div className="flex flex-col gap-2">
-        <h2 className="font-instrument-sans-bold text-2xl text-base-dark-grey font-bold">
-          Customize your links
-        </h2>
-        <p className="font-instrument-sans text-base-grey font-normal">
-          Add/edit/remove links below and then share all your profiles with the
-          world!
-        </p>
-      </div>
-      <Button title="+ Add New Link" />
-      {/* <div className="flex flex-col items-center justify-center gap-6 p-5 bg-light-grey rounded-lg text-center">
+    <div>
+      <div className="flex w-full flex-col justify-center gap-6 md:gap-10 p-6 md:p-10 bg-white rounded-t-lg ">
+        <div className="flex flex-col gap-2">
+          <h2 className="font-instrument-sans-bold text-2xl text-base-dark-grey font-bold">
+            Customize your links
+          </h2>
+          <p className="font-instrument-sans text-base-grey font-normal">
+            Add/edit/remove links below and then share all your profiles with
+            the world!
+          </p>
+        </div>
+        <Button title="+ Add New Link" onClick={addLink}  />
+        {/* <div className="flex flex-col items-center justify-center gap-6 p-5 bg-light-grey rounded-lg text-center">
         <Image
           src="images/illustration-empty.svg"
           width={250}
@@ -33,9 +40,10 @@ const CustomLink: React.FC = () => {
           your profiles with everyone!
         </p>
       </div> */}
-      <DragableInput/>
-      <div className="flex border-t border-dark-grey w-full pt-6 ">
-        <div className="justify-end flex">
+        <DragableInput links={links} setLinks={setLinks}  />
+      </div>
+      <div className="flex  bg-white md:justify-end   border-t border-dark-grey w-full px-10 py-6 rounded-b-lg md:p-6 ">
+        <div className="w-full sm:w-fit flex ">
           <Button title="Save" />
         </div>
       </div>

@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+"use client"
+import React, { createContext, useState, useEffect } from "react";
 import { Draggable } from "react-beautiful-dnd";
 import Image from "next/image";
 
@@ -15,9 +16,41 @@ interface LinkInputProps {
 }
 
 const LinkInput: React.FC<LinkInputProps> = ({ id, index, onRemove }) => {
-  const [platform, setPlatform] = useState("github");
-  const [link, setLink] = useState("");
-  const [isOpen, setIsOpen] = useState(false);
+  const [platform, setPlatform] = useState<string>("github");
+  const [link, setLink] = useState<string>("");
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [error, setError] = useState<string>("");
+
+  // // Load data from localStorage after component mounts
+  // useEffect(() => {
+  //   if (typeof window !== "undefined") {
+  //     const storedData = localStorage.getItem(id);
+  //     if (storedData) {
+  //       try {
+  //         const parsedData = JSON.parse(storedData);
+  //         console.log("data",parsedData)
+  //         if (parsedData.savedPlatform) {
+  //           setPlatform(parsedData.savedPlatform);
+  //           console.log();
+  //         }
+  //         if (parsedData.savedLink) {
+  //           setLink(parsedData.savedLink);
+  //           console.log(setLink)
+  //         }
+  //       } catch (error) {
+  //         console.error("Error parsing localStorage data", error);
+  //       }
+  //     }
+  //   }
+  // }, [id]);
+
+  // useEffect(() => {
+  //   // Save data to localStorage whenever platform or link changes
+  //   if (typeof window !== "undefined") {
+  //     const data = JSON.stringify({ savedPlatform: platform, savedLink: link });
+  //     localStorage.setItem(id, data);
+  //   }
+  // }, [platform, link, id]);
 
   const selectOptions: SelectOption[] = [
     { value: "github", icon: "/images/icon-github.svg", title: "Github" },
@@ -29,11 +62,50 @@ const LinkInput: React.FC<LinkInputProps> = ({ id, index, onRemove }) => {
       icon: "/images/icon-frontend-mentor.svg",
       title: "Frontend Mentor",
     },
+    {
+      value: "twitch",
+      icon: "/images/icon-twitch.svg",
+      title: "Twitch",
+    },
+    {
+      value: "hashnode",
+      icon: "/images/icon-hashnode.svg",
+      title: "Hashnode",
+    },
   ];
 
   const selectedOption = selectOptions.find(
     (option) => option.value === platform
   );
+
+  const handleLinkChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setLink(value);
+
+    // Show error if input is empty
+    if (!value.trim()) {
+      setError("Can't be empty");
+      return;
+    }
+
+    // Validate the link based on the selected platform
+    const regexMap: { [key: string]: RegExp } = {
+      github: /^https:\/\/(www\.)?github\.com\/.+/i,
+      youtube: /^https:\/\/(www\.)?youtube\.com\/.+/i,
+      linkedin: /^https:\/\/(www\.)?linkedin\.com\/.+/i,
+      facebook: /^https:\/\/(www\.)?facebook\.com\/.+/i,
+      twitch: /^https:\/\/(www\.)?twitch\.tv\/.+/i,
+      hashnode: /^https:\/\/(www\.)?hashnode\.com\/.+/i,
+      "frontend-mentor": /^https:\/\/(www\.)?frontendmentor\.io\/.+/i,
+    };
+
+    // Check if the link matches the selected platform's pattern
+    if (!regexMap[platform].test(value)) {
+      setError(`Please check the URL`);
+    } else {
+      setError("");
+    }
+  };
 
   return (
     <Draggable draggableId={id} index={index}>
@@ -119,17 +191,34 @@ const LinkInput: React.FC<LinkInputProps> = ({ id, index, onRemove }) => {
               )}
             </div>
           </div>
-          <div>
+          <div className="relative">
             <label className="text-sm font-instrument-sans text-base-dark-grey mb-1">
               Link
             </label>
+            <span className="absolute z-10  inset-y-0 left-3 top-7 flex items-center pointer-events-none">
+              <Image
+                src="images/icon-link.svg"
+                alt="Link Icon"
+                width={16}
+                height={16}
+              />
+            </span>
             <input
               type="text"
               value={link}
-              onChange={(e) => setLink(e.target.value)}
-              placeholder="e.g. https://www.github.com/johnappleseed"
-              className="mt-1 block w-full px-4 py-3 bg-white border border-gray-300 rounded-lg shadow-sm text-sm sm:text-base focus:outline-none focus:ring-1 focus:ring-purple focus:shadow-sm focus:shadow-purple "
+              onChange={handleLinkChange}
+              placeholder={`e.g. https://www.${platform}.com/johnappleseed`}
+              className={`mt-1 block w-full px-4 py-3 bg-white border ${
+                error
+                  ? " focus:ring-red-500 text-red-500 text-base font-instrument-sans focus:shadow-red-500"
+                  : " focus:ring-purple  focus:shadow-purple"
+              } rounded-lg shadow-sm text-sm sm:text-base font-instrument-sans  focus:outline-none focus:ring-1 focus:shadow-sm pl-10 pr-12 relative`}
             />
+            {error && (
+              <span className="absolute text-red-500 text-xs font-instrument-sans font-light right-2 top-[52px]  transform -translate-y-1/2">
+                {error}
+              </span>
+            )}
           </div>
         </div>
       )}
@@ -138,3 +227,4 @@ const LinkInput: React.FC<LinkInputProps> = ({ id, index, onRemove }) => {
 };
 
 export default LinkInput;
+

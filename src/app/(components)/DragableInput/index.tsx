@@ -2,8 +2,13 @@ import React, { useState } from 'react';
 import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd';
 import LinkInput from '@/app/(components)/DragableInput/LinkInput';
 
-const LinkList: React.FC = () => {
-  const [links, setLinks] = useState([{ id: 'link1' }]);
+interface DragableInputProps {
+  links: { id: string }[];
+  setLinks: React.Dispatch<React.SetStateAction<{ id: string }[]>>;
+}
+
+const LinkList: React.FC<DragableInputProps> = ({links, setLinks}) => {
+
 
   const onDragEnd = (result: DropResult) => {
     if (!result.destination) return;
@@ -13,10 +18,6 @@ const LinkList: React.FC = () => {
     items.splice(result.destination.index, 0, reorderedItem);
 
     setLinks(items);
-  };
-
-  const addLink = () => {
-    setLinks([...links, { id: `link${links.length + 1}` }]);
   };
 
   const removeLink = (id: string) => {
@@ -40,7 +41,6 @@ const LinkList: React.FC = () => {
           </div>
         )}
       </Droppable>
-      <button onClick={addLink}>Add Link</button>
     </DragDropContext>
   );
 };
