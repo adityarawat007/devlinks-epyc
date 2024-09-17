@@ -3,6 +3,7 @@
 import Image from "next/image";
 import React from "react";
 import Button from "../Button";
+import LinkIcon from "@/app/(icons)/LinkIcon";
 
 const Navbar: React.FC = () => {
   return (
@@ -14,20 +15,15 @@ const Navbar: React.FC = () => {
           height={32}
           alt="logo-devlinks"
         />
-        <span className="font-instrument-sans-bold hidden text-2xl text-base-dark-grey">
+        <span className="font-instrument-sans-bold sm:flex hidden text-2xl text-base-dark-grey">
           devlinks
         </span>
       </div>
 
       <div className="flex gap-4">
         {/* Links Tab */}
-        <div className="flex items-center gap-2 cursor-pointer bg-light-purple rounded-lg py-3 px-7">
-          <Image
-            src="/images/icon-link.svg"
-            width={20}
-            height={20}
-            alt="Links"
-          />
+        <div className="flex items-center gap-2 cursor-pointer bg-light-purple text-purple rounded-lg py-3 px-7">
+          <LinkIcon/>
           <span className="font-instrument-sans-semibold text-base hidden sm:flex text-purple">
             Links
           </span>

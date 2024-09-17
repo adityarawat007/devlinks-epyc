@@ -1,5 +1,5 @@
-"use client"
-import React, { useState, useEffect } from "react";
+"use client";
+import React, { useState, useEffect, HtmlHTMLAttributes } from "react";
 import { Draggable } from "react-beautiful-dnd";
 import Image from "next/image";
 
@@ -20,37 +20,6 @@ const LinkInput: React.FC<LinkInputProps> = ({ id, index, onRemove }) => {
   const [link, setLink] = useState<string>("");
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
-
-  // // Load data from localStorage after component mounts
-  // useEffect(() => {
-  //   if (typeof window !== "undefined") {
-  //     const storedData = localStorage.getItem(id);
-  //     if (storedData) {
-  //       try {
-  //         const parsedData = JSON.parse(storedData);
-  //         console.log("data",parsedData)
-  //         if (parsedData.savedPlatform) {
-  //           setPlatform(parsedData.savedPlatform);
-  //           console.log();
-  //         }
-  //         if (parsedData.savedLink) {
-  //           setLink(parsedData.savedLink);
-  //           console.log(setLink)
-  //         }
-  //       } catch (error) {
-  //         console.error("Error parsing localStorage data", error);
-  //       }
-  //     }
-  //   }
-  // }, [id]);
-
-  // useEffect(() => {
-  //   // Save data to localStorage whenever platform or link changes
-  //   if (typeof window !== "undefined") {
-  //     const data = JSON.stringify({ savedPlatform: platform, savedLink: link });
-  //     localStorage.setItem(id, data);
-  //   }
-  // }, [platform, link, id]);
 
   const selectOptions: SelectOption[] = [
     { value: "github", icon: "/images/icon-github.svg", title: "Github" },
@@ -77,6 +46,23 @@ const LinkInput: React.FC<LinkInputProps> = ({ id, index, onRemove }) => {
   const selectedOption = selectOptions.find(
     (option) => option.value === platform
   );
+
+  const handleDropdownClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.stopPropagation();
+    setIsOpen(!isOpen);
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as HTMLElement | null;
+      if (isOpen && target && !target.closest(".LinkInput")) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener("click", handleClickOutside);
+    return () => document.removeEventListener("click", handleClickOutside);
+  }, [isOpen]);
 
   const handleLinkChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -142,11 +128,11 @@ const LinkInput: React.FC<LinkInputProps> = ({ id, index, onRemove }) => {
             <div className="relative mt-1">
               <div
                 className="flex w-full pr-4 py-3 px-4 justify-between space-x-3 select-none text-sm sm:text-base bg-white text-base-dark-grey items-center border border-border rounded-md cursor-pointer focus:outline-none focus:ring-1 focus:ring-purple focus:shadow-sm focus:shadow-purple"
-                onClick={() => setIsOpen(!isOpen)}
+                onClick={handleDropdownClick}
                 tabIndex={0}
               >
                 {selectedOption && (
-                  <div className="items-center flex">
+                  <div className="items-center font-instrument-sans text-base-dark-grey flex">
                     <Image
                       src={selectedOption.icon}
                       alt={selectedOption.title}
@@ -170,7 +156,7 @@ const LinkInput: React.FC<LinkInputProps> = ({ id, index, onRemove }) => {
                   {selectOptions.map((option) => (
                     <div
                       key={option.value}
-                      className="flex items-center border-b border-border font-normal text-base-dark-grey py-1 text-base font-instrument-sans cursor-pointer hover:text-purple "
+                      className="flex items-center border-b border-border font-normal text-base-dark-grey py-3 text-base font-instrument-sans cursor-pointer hover:text-purple "
                       onClick={() => {
                         setPlatform(option.value);
                         setIsOpen(false);
@@ -212,7 +198,7 @@ const LinkInput: React.FC<LinkInputProps> = ({ id, index, onRemove }) => {
                 error
                   ? " focus:ring-red-500 text-red-500 text-base font-instrument-sans focus:shadow-red-500"
                   : " focus:ring-purple  focus:shadow-purple"
-              } rounded-lg shadow-sm text-sm sm:text-base font-instrument-sans  focus:outline-none focus:ring-1 focus:shadow-sm pl-10 pr-12 relative`}
+              } rounded-lg shadow-sm text-sm sm:text-base font-instrument-sans  focus:outline-none focus:ring-1 pl-10 pr-12 relative`}
             />
             {error && (
               <span className="absolute text-red-500 text-xs font-instrument-sans font-light right-2 top-[52px]  transform -translate-y-1/2">
@@ -227,4 +213,3 @@ const LinkInput: React.FC<LinkInputProps> = ({ id, index, onRemove }) => {
 };
 
 export default LinkInput;
-

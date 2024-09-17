@@ -12,7 +12,7 @@ const CustomLink: React.FC = () => {
     setLinks([...links, newLink]);
   };
   return (
-    <div>
+    <div className="">
       <div className="flex w-full flex-col items-stretch justify-center gap-y-6 md:gap-10 p-6 md:p-10 bg-white rounded-t-lg ">
         <div className="flex flex-col gap-2">
           <h2 className="font-instrument-sans-bold text-2xl text-base-dark-grey font-bold">
