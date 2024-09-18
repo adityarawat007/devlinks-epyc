@@ -12,6 +12,7 @@ import FacebookIcon from '@/app/(icons)/FacebookIcon'
 const Frame: React.FC = () => {
   const links = useLinkStore((state) => state.links)
 
+  //Function to get platform bg-color and icon
   const getPlatformStyle = (platform: string) => {
     switch (platform.toLowerCase()) {
       case 'github':
@@ -33,6 +34,7 @@ return (
   <div className="bg-white p-6 justify-center flex items-center rounded-xl w-full relative">
     <Image src="/images/illustration-phone-mockup.svg" width={250} height={250} alt='phone-mockup' />
     <div className="absolute top-[285px] left-1/2 cursor-pointer transform -translate-x-1/2 w-[192px]">
+    {/* Mapping through links */}
       {links.map((link, index) => {
         const { icon, bgColor } = getPlatformStyle(link.platform);
         return (

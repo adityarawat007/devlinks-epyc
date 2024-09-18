@@ -11,11 +11,10 @@ interface LinkListProps {
 }
 
 const LinkList: React.FC<LinkListProps> = ({ links, setLinks }) => {
-
+  //This Component only maps Links and passes the id to LinkInput
   const removeLink = (id: string) => {
     setLinks(links.filter(link => link.id !== id));
   };
-
   return (
     <div>
       {links.map((link, index) => (

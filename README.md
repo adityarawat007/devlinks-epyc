@@ -33,6 +33,6 @@ npm run dev
 - Nextjs
 - Tyepscript
 - TailwindCSS
-- React beautiful-dnd
+- Zustand
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.

@@ -23,7 +23,7 @@ const Navbar: React.FC = () => {
       <div className="flex gap-4">
         {/* Links Tab */}
         <div className="flex items-center gap-2 cursor-pointer bg-light-purple text-purple rounded-lg py-3 px-7">
-          <LinkIcon/>
+          <LinkIcon />
           <span className="font-instrument-sans-semibold text-base hidden sm:flex text-purple">
             Links
           </span>
@@ -42,18 +42,18 @@ const Navbar: React.FC = () => {
           </span>
         </div>
       </div>
-
+    {/* Preview Button */}
       <div>
-      <div className="border sm:hidden border-purple py-3 px-4 rounded-lg">
-      <Image
+        <div className="border sm:hidden border-purple py-3 px-4 rounded-lg">
+          <Image
             src="/images/icon-preview-header.svg"
             width={20}
             height={20}
             alt="Links"
           />
-      </div>
+        </div>
         <div className="hidden sm:flex">
-        <Button title="Preview" />
+          <Button title="Preview" />
         </div>
       </div>
     </nav>
@@ -61,4 +61,3 @@ const Navbar: React.FC = () => {
 };
 
 export default Navbar;
-

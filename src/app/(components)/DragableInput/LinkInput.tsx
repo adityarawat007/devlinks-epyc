@@ -26,6 +26,7 @@ const LinkInput: React.FC<LinkInputProps> = ({ id, index, onRemove }) => {
   const [error, setError] = useState<string>("");
 
   const { addLink, removeLink } = useLinkStore();
+
   //Runs when there any link platform changes
   useEffect(() => {
     addLink(id, platform);
@@ -46,11 +47,13 @@ const LinkInput: React.FC<LinkInputProps> = ({ id, index, onRemove }) => {
     (option) => option.title === platform
   );
 
+  //Function to handle dropdown click
   const handleDropdownClick = (e: React.MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
     setIsOpen(!isOpen);
   };
 
+  //Function to close dropdown when clicked outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       const target = event.target as HTMLElement | null;
@@ -63,6 +66,7 @@ const LinkInput: React.FC<LinkInputProps> = ({ id, index, onRemove }) => {
     return () => document.removeEventListener("click", handleClickOutside);
   }, [isOpen]);
 
+  //Function to Verify the link
   const handleLinkChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setLink(value);
@@ -105,6 +109,7 @@ const LinkInput: React.FC<LinkInputProps> = ({ id, index, onRemove }) => {
           Remove
         </button>
       </div>
+      {/* DropDown */}
       <div>
         <label className="text-sm text-base-dark-grey">Platform</label>
         <div className="relative mt-1">
@@ -149,6 +154,7 @@ const LinkInput: React.FC<LinkInputProps> = ({ id, index, onRemove }) => {
           )}
         </div>
       </div>
+      {/* Link Input */}
       <div className="relative">
         <label className="text-sm mb-1">Link</label>
         <span className="absolute z-10 inset-y-0 left-3 top-7 flex items-center pointer-events-none">
