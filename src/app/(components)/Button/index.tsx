@@ -8,7 +8,7 @@ interface ButtonProps {
 const Button: React.FC<ButtonProps> = ({ title, onClick }) => {
   return (
     <button
-      className={`flex items-center justify-center px-7 py-3 gap-2 border rounded-md border-purple ${
+      className={`flex items-center justify-center cursor-pointer px-7 py-3 gap-2 border rounded-md border-purple ${
         title === "Save"
           ? "bg-purple text-white "
           : "bg-white text-purple hover:bg-light-purple"

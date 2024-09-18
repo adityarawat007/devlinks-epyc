@@ -112,7 +112,7 @@ const LinkInput: React.FC<LinkInputProps> = ({ id, index, onRemove }) => {
       {/* DropDown */}
       <div>
         <label className="text-sm text-base-dark-grey">Platform</label>
-        <div className="relative mt-1">
+        <div className="relative mt-1 cursor-pointer">
           <div
             className="flex w-full pr-4 py-3 px-4 justify-between space-x-3 select-none text-sm sm:text-base bg-white text-base-dark-grey items-center border border-border rounded-md cursor-pointer focus:outline-none focus:ring-1 focus:ring-purple focus:shadow-sm focus:shadow-purple"
             onClick={handleDropdownClick}

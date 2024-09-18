@@ -40,7 +40,7 @@ return (
         return (
           <div
             key={index}
-            className={`${bgColor} h-10 flex justify-between items-center px-4 py-3 mb-3 rounded-lg`}
+            className={`${bgColor} h-10 flex justify-between cursor-pointer items-center px-4 py-3 mb-3 rounded-lg`}
           >
             <div className='text-white flex items-center'>
               {icon}
