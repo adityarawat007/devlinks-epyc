@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 
+import { useLinkStore } from "@/app/(store)/LinkStore";
 interface SelectOption {
   value: string;
   icon: string;
@@ -12,28 +13,47 @@ interface LinkInputProps {
   id: string;
   index: number;
   onRemove: (id: string) => void;
+  setActiveLinkCard: React.Dispatch<React.SetStateAction<number | null>>;
 }
 
-const LinkInput: React.FC<LinkInputProps> = ({ id, index, onRemove }) => {
+const LinkInput: React.FC<LinkInputProps> = ({
+  id,
+  index,
+  onRemove,
+  setActiveLinkCard,
+}) => {
   const [platform, setPlatform] = useState<string>("github");
   const [link, setLink] = useState<string>("");
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
 
-  console.log("id", id , index);
-  
+
+  const { addLink, removeLink } = useLinkStore();
+//Runs when there any link platform changes
+  useEffect(() => {
+    addLink(id, platform);
+    return () => {
+      removeLink(id);
+    };
+  }, [id, platform, addLink, removeLink]);
 
   const selectOptions: SelectOption[] = [
     { value: "github", icon: "/images/icon-github.svg", title: "Github" },
     { value: "youtube", icon: "/images/icon-youtube.svg", title: "Youtube" },
     { value: "linkedin", icon: "/images/icon-linkedin.svg", title: "Linkedin" },
     { value: "facebook", icon: "/images/icon-facebook.svg", title: "Facebook" },
-    { value: "frontend-mentor", icon: "/images/icon-frontend-mentor.svg", title: "Frontend Mentor" },
+    {
+      value: "frontend-mentor",
+      icon: "/images/icon-frontend-mentor.svg",
+      title: "Frontend Mentor",
+    },
     { value: "twitch", icon: "/images/icon-twitch.svg", title: "Twitch" },
     { value: "hashnode", icon: "/images/icon-hashnode.svg", title: "Hashnode" },
   ];
 
-  const selectedOption = selectOptions.find(option => option.value === platform);
+  const selectedOption = selectOptions.find(
+    (option) => option.value === platform
+  );
 
   const handleDropdownClick = (e: React.MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
@@ -79,7 +99,12 @@ const LinkInput: React.FC<LinkInputProps> = ({ id, index, onRemove }) => {
   };
 
   return (
-    <div className="bg-light-grey space-y-3 rounded-xl p-5 mb-6">
+    <div
+      className="linkCard bg-light-grey space-y-3 cursor-grab rounded-xl p-5 mb-6"
+      draggable
+      onDragStart={() => setActiveLinkCard(index)}
+      onDragEnd={() => setActiveLinkCard(null)}
+    >
       <div className="flex justify-between items-center">
         <div className="flex space-x-2">
           <Image
@@ -88,12 +113,11 @@ const LinkInput: React.FC<LinkInputProps> = ({ id, index, onRemove }) => {
             height={16}
             alt="icon"
           />
-          <h2 className="text-base font-bold text-base-grey">Link #{index + 1}</h2>
+          <h2 className="text-base font-bold text-base-grey">
+            Link #{index + 1}
+          </h2>
         </div>
-        <button
-          onClick={() => onRemove(id)}
-          className="text-base-grey"
-        >
+        <button onClick={() => onRemove(id)} className="text-base-grey">
           Remove
         </button>
       </div>

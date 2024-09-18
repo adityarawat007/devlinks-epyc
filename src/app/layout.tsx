@@ -2,6 +2,7 @@ import React from "react";
 import localFont from "next/font/local";
 import "./globals.css";
 
+
 const instrumentSans = localFont({
   src: "./fonts/static/InstrumentSans-Regular.ttf",
   variable: "--font-instrument-sans",
@@ -31,7 +32,9 @@ const RootLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
       <body
         className={`${instrumentSans.variable} ${instrumentSansBold.variable} ${instrumentSansSemiBold.variable}`}
       >
-        {children}
+    
+          {children}
+    
       </body>
     </html>
   );
