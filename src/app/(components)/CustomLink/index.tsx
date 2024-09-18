@@ -6,7 +6,6 @@ import DragableInput from "@/app/(components)/DragableInput";
 
 const CustomLink: React.FC = () => {
   const [links, setLinks] = useState<{ id: string }[]>([]);
-  const [activeLinkCard, setActiveLinkCard]= useState<number | null>(null);
   const addLink = () => {
     const newLink = { id: `link-${Date.now()}` };
     setLinks([...links, newLink]);
@@ -46,7 +45,7 @@ const CustomLink: React.FC = () => {
             className="scrollable-container overflow-y-auto"
             style={{ height: "260px" }}
           >
-            <DragableInput links={links} setLinks={setLinks} setActiveLinkCard={setActiveLinkCard} />
+            <DragableInput links={links} setLinks={setLinks}  />
           </div>
         )}
       </div>
